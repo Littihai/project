@@ -46,4 +46,8 @@ function getThaiDayName(dayIndex) {
   return days[dayIndex] || "";
 }
 ใช้สำหรับ test git branch lot1
+<<<<<<< HEAD
 check status main
+=======
+check for pull git
+>>>>>>> lot1
