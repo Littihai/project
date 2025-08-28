@@ -1,0 +1,47 @@
+function sendTelegramNotify() {
+  const token = '7550895153:AAHRs3yMNWzNY9CdGqqgeX28YfvIIoANmCg';
+  const chatId = '-4980296139';
+
+  const today = new Date();
+  const dayName = getThaiDayName(today.getDay());
+  const todayStr = Utilities.formatDate(today, "Asia/Bangkok", "yyyy-MM-dd");
+
+  // 🛑 กำหนดวันพระเองใน array
+  const buddhistHolyDays = [
+    "2025-06-25", "2025-07-09", "2025-07-24", "2025-08-08", "2025-08-22", "2025-09-06",
+    "2025-09-21", "2025-10-06", "2025-10-21", "2025-11-04", "2025-11-19", "2025-12-04",
+    "2025-12-18"
+  ];
+
+  const isHolyDay = buddhistHolyDays.includes(todayStr);
+  const holyMessage = isHolyDay
+    ? "📿 วันนี้เป็น *วันพระ* 🙏\nขอให้เจริญในธรรมและเมตตา"
+    : "📆 วันนี้ไม่ตรงกับวันพระ";
+
+  const message =
+    `📌 รายงานประจำวันที่ *${todayStr}*\n` +
+    `🗓️ วันนี้ตรงกับ *วัน${dayName}*\n\n` +
+    holyMessage;
+
+  const telegramUrl = `https://api.telegram.org/bot${token}/sendMessage`;
+
+  const payload = {
+    'chat_id': chatId,
+    'text': message,
+    'parse_mode': 'Markdown'
+  };
+
+  const options = {
+    'method': 'post',
+    'contentType': 'application/json',
+    'payload': JSON.stringify(payload)
+  };
+
+  UrlFetchApp.fetch(telegramUrl, options);
+}
+
+// ✅ ฟังก์ชันแปลงเลขวัน -> ชื่อวันภาษาไทย
+function getThaiDayName(dayIndex) {
+  const days = ["อาทิตย์", "จันทร์", "อังคาร", "พุธ", "พฤหัสบดี", "ศุกร์", "เสาร์"];
+  return days[dayIndex] || "";
+}
