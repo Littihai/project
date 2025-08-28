@@ -45,3 +45,4 @@ function getThaiDayName(dayIndex) {
   const days = ["อาทิตย์", "จันทร์", "อังคาร", "พุธ", "พฤหัสบดี", "ศุกร์", "เสาร์"];
   return days[dayIndex] || "";
 }
+ใช้สำหรับ test git branch lot1
